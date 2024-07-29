@@ -1,0 +1,101 @@
+Przykłady użycia:
+USER ENDPOINTS:
+Rejestracja:
+POST http://localhost:8080/register
+{
+    "username" : "kkarpiuk",
+    "password" : "0123"
+}
+
+Logowanie:
+POST http://localhost:8080/login
+{
+    "username" : "kkarpiuk",
+    "password" : "0123"
+}
+UWAGA: W ODPOWIEDZI PRZYJDZIE COŚ TAKIEGO:
+{
+    "jwtToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNaWNoYcWCIiwiaWF0IjoxNzE2NTc0MDUzLCJleHAiOjE3MTY2NjA0NTN9.O_DlLqnEu6dPsVmW3OFBs5SGGpAHA_seY8uFtUoHlLQ",
+    "username": "kkarpiuk",
+    "roles": []
+}
+TRZEBA SOBIE ZAPISAĆ jwtToken i od tej pory zawsze przy następnym
+zapytaniu umieścić w nagłówku zapytania HTTP w polu "Authorization" wartość:
+Bearer <token>
+Czyli w tym konkretnym przypadku:
+Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNaWNoYcWCIiwiaWF0IjoxNzE2NTc0MDUzLCJleHAiOjE3MTY2NjA0NTN9.O_DlLqnEu6dPsVmW3OFBs5SGGpAHA_seY8uFtUoHlLQ
+
+GAME ENDPOINTS:
+Rozpoczęcie losowej gry:
+GET http://localhost:8080/game/new
+
+Rozpoczęcie gry o danym ID:
+GET http://localhost:8080/game/new/{id}
+
+Zagranie ruchu, jako move można wstawić ruch w formacie e2-e4:
+PUT http://localhost:8080/game/{move}
+Content-Type: application/x-www-form-urlencoded
+
+Wskazanie, że gracz popełnił błąd:
+PUT http://localhost:8080/game/mistake
+
+OPENING ENDPOINTS:
+Zwraca wszystkie openingi w bazie w formacie poniżej:
+GET http://localhost:8080/opening
+    {
+        "id": 4,
+        "name": "Hiszpan",
+        "moveSequence": "e2-e4e7-e5g1-f3",
+        "description": "Mucho gusto",
+        "playerSide": "white",
+        "creationDate": "2024-05-24",
+        "createdBy": "Michał"
+    }
+
+Zwraca tylko openingi subskrybowane przez użytkownika:
+GET http://localhost:8080/opening/user
+
+Wstawienie openingu na serwer (automatycznie tworzona jest subskrypcja):
+POST http://localhost:8080/opening
+Content-Type: application/json
+{
+    "name" : "Włoch",
+    "moveSequence" : "d2-d4d7-d5g1-f3",
+    "description" : "Spod pach",
+    "playerSide" : "white"
+}
+
+Usunięcie openingu o danym ID z bazy (użytkownik może usunąć tylko opening, który sam dodał):
+DELETE http://localhost:8080/opening/{id}
+
+Dodanie globalnie dostępnego openingu do subskrybowanych openingów:
+PUT http://localhost:8080/opening/subscribe/{id}
+
+Usunięcie openingu z subskrybowanych:
+DELETE http://localhost:8080/opening/unsub/{id}
+
+Zwraca openingi(globalne), których nazwa zaczyna się dany fragment:
+GET http://localhost:8080/opening/{nameFrag}
+
+Rozpoczęcie "nagrywania" openingu (zwraca listę figur na pozycjach startowych):
+GET http://localhost:8080/opening/new/start
+
+Zrobienie ruchu podczas "nagrywania" (move w formacie e2-e4):
+PUT http://localhost:8080/opening/new/{move}
+
+Zapisanie "nagrywanego" debiutu, trzeba podać pozostałe dane (playerSide "black" lub "white"):
+POST http://localhost:8080/opening/new/save
+{
+    "name" : "nagrany opening"
+    "description" : "projekt na piątkę"
+    "playerSide" : "black"
+}
+
+Zwraca statystki dotyczące wszystkich debiutów gracza:
+GET http://localhost:8080/opening/stats
+{
+    "opening": 10,      // id openingu
+    "correct": 0,
+    "incorrect": 0,
+    "lastTrained": 0    // liczba dni od ostatniego zagrania do dzisiaj
+}

@@ -1,0 +1,126 @@
+:root {
+  --main-bg-color: #2c2b2a;
+}
+
+.Browser {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: var(--main-bg-color);
+  position: absolute;
+  border-radius: 5px;
+  height: 800px;
+  width: 350px;
+  top: 42.5px;
+  left: 100px;
+  opacity: 0;
+  overflow-y: auto;
+}
+
+.Opening {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--main-bg-color);
+  filter: brightness(70%);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  color: rgb(255, 255, 255);
+  margin-bottom: 1rem;
+  max-width: 90%;
+  border-radius: 10px;
+}
+
+.fa-trash {
+  margin-left: 0.75rem;
+}
+
+.Search {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.search-input {
+  outline: none;
+  background: none;
+  border: 1px solid #000000;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  width: 300px;
+  color: #ffffff;
+}
+
+.search-input::placeholder {
+  color: #ffffff4d;
+}
+
+.AddBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.AddOpening {
+  text-align: center;
+  color: wheat;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.buttons {
+  margin-top: 10px;
+}
+
+.buttons button {
+  margin-right: 10px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #413f3c;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(120%);
+}
+
+.BrowseBtn {
+  position: absolute;
+  bottom: 2%;
+  left: 30%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.login-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 100px;
+}
