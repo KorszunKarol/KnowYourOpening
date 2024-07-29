@@ -1,101 +1,100 @@
-Przykłady użycia:
-USER ENDPOINTS:
-Rejestracja:
-POST http://localhost:8080/register
-{
-    "username" : "kkarpiuk",
-    "password" : "0123"
-}
+# Chess Repertoire Trainer
 
-Logowanie:
-POST http://localhost:8080/login
-{
-    "username" : "kkarpiuk",
-    "password" : "0123"
-}
-UWAGA: W ODPOWIEDZI PRZYJDZIE COŚ TAKIEGO:
-{
-    "jwtToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNaWNoYcWCIiwiaWF0IjoxNzE2NTc0MDUzLCJleHAiOjE3MTY2NjA0NTN9.O_DlLqnEu6dPsVmW3OFBs5SGGpAHA_seY8uFtUoHlLQ",
-    "username": "kkarpiuk",
-    "roles": []
-}
-TRZEBA SOBIE ZAPISAĆ jwtToken i od tej pory zawsze przy następnym
-zapytaniu umieścić w nagłówku zapytania HTTP w polu "Authorization" wartość:
-Bearer <token>
-Czyli w tym konkretnym przypadku:
-Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNaWNoYcWCIiwiaWF0IjoxNzE2NTc0MDUzLCJleHAiOjE3MTY2NjA0NTN9.O_DlLqnEu6dPsVmW3OFBs5SGGpAHA_seY8uFtUoHlLQ
+Chess Repertoire Trainer is an application with a Java backend and a React frontend that allows you to train and improve your chess repertoire.
 
-GAME ENDPOINTS:
-Rozpoczęcie losowej gry:
-GET http://localhost:8080/game/new
+## Features
 
-Rozpoczęcie gry o danym ID:
-GET http://localhost:8080/game/new/{id}
+- Train your chess openings and repertoire
+- Track your progress over time
+- Interactive and user-friendly interface
+- Seamless integration between frontend and backend
 
-Zagranie ruchu, jako move można wstawić ruch w formacie e2-e4:
-PUT http://localhost:8080/game/{move}
-Content-Type: application/x-www-form-urlencoded
+## Tech Stack
 
-Wskazanie, że gracz popełnił błąd:
-PUT http://localhost:8080/game/mistake
+- **Backend**: Java (Spring Boot)
+- **Frontend**: React
 
-OPENING ENDPOINTS:
-Zwraca wszystkie openingi w bazie w formacie poniżej:
-GET http://localhost:8080/opening
-    {
-        "id": 4,
-        "name": "Hiszpan",
-        "moveSequence": "e2-e4e7-e5g1-f3",
-        "description": "Mucho gusto",
-        "playerSide": "white",
-        "creationDate": "2024-05-24",
-        "createdBy": "Michał"
-    }
+## Installation
 
-Zwraca tylko openingi subskrybowane przez użytkownika:
-GET http://localhost:8080/opening/user
+### Backend
 
-Wstawienie openingu na serwer (automatycznie tworzona jest subskrypcja):
-POST http://localhost:8080/opening
-Content-Type: application/json
-{
-    "name" : "Włoch",
-    "moveSequence" : "d2-d4d7-d5g1-f3",
-    "description" : "Spod pach",
-    "playerSide" : "white"
-}
+1. **Clone the repository:**
 
-Usunięcie openingu o danym ID z bazy (użytkownik może usunąć tylko opening, który sam dodał):
-DELETE http://localhost:8080/opening/{id}
+    ```sh
+    git clone https://github.com/your-username/chess-repertoire-trainer.git
+    cd chess-repertoire-trainer/backend
+    ```
 
-Dodanie globalnie dostępnego openingu do subskrybowanych openingów:
-PUT http://localhost:8080/opening/subscribe/{id}
+2. **Build and run the backend:**
 
-Usunięcie openingu z subskrybowanych:
-DELETE http://localhost:8080/opening/unsub/{id}
+    ```sh
+    ./mvnw spring-boot:run
+    ```
 
-Zwraca openingi(globalne), których nazwa zaczyna się dany fragment:
-GET http://localhost:8080/opening/{nameFrag}
+### Frontend
 
-Rozpoczęcie "nagrywania" openingu (zwraca listę figur na pozycjach startowych):
-GET http://localhost:8080/opening/new/start
+1. **Navigate to the frontend directory:**
 
-Zrobienie ruchu podczas "nagrywania" (move w formacie e2-e4):
-PUT http://localhost:8080/opening/new/{move}
+    ```sh
+    cd ../frontend
+    ```
 
-Zapisanie "nagrywanego" debiutu, trzeba podać pozostałe dane (playerSide "black" lub "white"):
-POST http://localhost:8080/opening/new/save
-{
-    "name" : "nagrany opening"
-    "description" : "projekt na piątkę"
-    "playerSide" : "black"
-}
+2. **Install dependencies and start the frontend:**
 
-Zwraca statystki dotyczące wszystkich debiutów gracza:
-GET http://localhost:8080/opening/stats
-{
-    "opening": 10,      // id openingu
-    "correct": 0,
-    "incorrect": 0,
-    "lastTrained": 0    // liczba dni od ostatniego zagrania do dzisiaj
-}
+    ```sh
+    npm install
+    npm start
+    ```
+
+## Usage
+
+1. **Start the backend server:**
+
+    Ensure the backend server is running by following the backend installation steps.
+
+2. **Start the frontend server:**
+
+    Ensure the frontend server is running by following the frontend installation steps.
+
+3. **Open your browser and go to:**
+
+    ```
+    http://localhost:3000
+    ```
+
+4. **Sign up and log in to start training your chess repertoire.**
+
+## Example
+
+Check out this [example video](https://youtu.be/CR-00Q0mBJk?si=tyR8f8CdMs-DfiC_) to see the app in action.
+
+## Contributing
+
+1. **Fork the repository.**
+2. **Create a new branch:**
+
+    ```sh
+    git checkout -b my-new-feature
+    ```
+
+3. **Make your changes and commit them:**
+
+    ```sh
+    git commit -m 'Add some feature'
+    ```
+
+4. **Push to the branch:**
+
+    ```sh
+    git push origin my-new-feature
+    ```
+
+5. **Submit a pull request.**
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or suggestions, feel free to reach out at your-email@example.com.
